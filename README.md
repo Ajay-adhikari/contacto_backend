@@ -33,6 +33,8 @@ Copy code
 {
   "error": "Invalid credentials"
 }
+
+
 2. Create Contact API
 Endpoint: https://contacto-backend.onrender.com/api/contacts/create
 
@@ -41,6 +43,8 @@ Method: POST
 Request Body:
 
 json
+
+
 Copy code
 {
   "token": "YOUR_JWT_TOKEN",
@@ -64,6 +68,9 @@ Copy code
 {
   "error": "Invalid token"
 }
+
+
+
 3. Edit Contact API
 Endpoint: https://contacto-backend.onrender.com/api/contacts/edit
 
@@ -92,6 +99,9 @@ Copy code
 {
   "error": "Invalid token" or "Contact not found"
 }
+
+
+
 4. Search Contact API
 Endpoint: https://contacto-backend.onrender.com/api/contacts/search
 
