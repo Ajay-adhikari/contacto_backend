@@ -22,12 +22,16 @@ Copy code
 Response:
 
 On success:
+
+
 json
 Copy code
 {
   "token": "YOUR_JWT_TOKEN"
 }
+
 On failure:
+
 json
 Copy code
 {
@@ -57,12 +61,15 @@ Copy code
 Response:
 
 On success:
+
 json
 Copy code
 {
   "message": "Contact created successfully"
 }
+
 On failure (e.g., invalid token):
+
 json
 Copy code
 {
@@ -88,14 +95,17 @@ Copy code
 Response:
 
 On success:
+
 json
 Copy code
 {
   "message": "Contact updated successfully"
 }
 On failure (e.g., invalid token, contact not found):
+
 json
 Copy code
+
 {
   "error": "Invalid token" or "Contact not found"
 }
@@ -111,6 +121,7 @@ Request Body:
 
 json
 Copy code
+
 {
   "token": "YOUR_JWT_TOKEN",
   "search_token": "raj"
@@ -118,8 +129,10 @@ Copy code
 Response:
 
 On success:
+
 json
 Copy code
+
 [
   {
     "name": "Raj Singh",
@@ -136,9 +149,12 @@ Copy code
     "twitter": "vanraj_twitter"
   }
 ]
+
 On failure (e.g., invalid token):
+
 json
 Copy code
+
 {
   "error": "Invalid token"
 }
