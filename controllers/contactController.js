@@ -33,6 +33,12 @@ const createContact = async (req, res) => {
     if (!decoded) {
         return res.status(401).json({ error: 'Invalid token' });
     }
+    const encryptedName = encrypt(name);
+        const existingContact = await Contact.findOne({ name: encryptedName });
+
+        if (existingContact) {
+            return res.status(400).json({ error: 'A contact with this name already exists' });
+        }
 
     const newContact = new Contact({
         name: encrypt(name),
@@ -66,8 +72,10 @@ const editContact = async (req, res) => {
         }
 
         if (email) contact.email = encrypt(email);
-        if (linkedin) contact.linkedin = encrypt(linkedin);
-        if (twitter) contact.twitter = encrypt(twitter);
+        else if (linkedin) contact.linkedin = encrypt(linkedin);
+        else if (twitter) contact.twitter = encrypt(twitter);
+        else return res.status(404).json({error:'Invalid field'});
+        
 
         await contact.save();
         res.json({ message: 'Contact updated successfully' });
@@ -79,14 +87,15 @@ const editContact = async (req, res) => {
 const searchContact = async (req, res) => {
     const { token, search_token } = req.body;
     const decoded = verifyToken(token);
-console.log(search_token)
+    
+// console.log(search_token)
     if (!decoded) {
         return res.status(401).json({ error: 'Invalid token' });
     }
 
     try {
         const contacts = await Contact.find();
-        const results = contacts.filter(contact => decrypt(contact.name).includes(search_token))
+        const results = contacts.filter(contact => decrypt(contact.name).toLowerCase().includes(search_token.toLowerCase()))
                                 .map(contact => ({
                                     name: decrypt(contact.name),
                                     phone: contact.phone,
