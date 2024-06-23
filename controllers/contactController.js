@@ -58,6 +58,9 @@ const createContact = async (req, res) => {
 
 const editContact = async (req, res) => {
     const { token, name, email, linkedin, twitter } = req.body;
+    if (!token || !name) {
+        return res.status(400).json({ error: 'Token and name are required' });
+    }
     const decoded = verifyToken(token);
 
     if (!decoded) {
@@ -70,11 +73,22 @@ const editContact = async (req, res) => {
         if (!contact) {
             return res.status(404).json({ error: 'Contact not found' });
         }
+        const validFields = ['email', 'linkedin', 'twitter']; // Valid fields for update
+        const providedFields = Object.keys(req.body);
+
+        // Check for any invalid fields provided
+        const invalidFields = providedFields.filter(field => field !== 'name' && field !== 'token' &&!validFields.includes(field));
+
+        // If there are invalid fields, return an error
+        if (invalidFields.length > 0) {
+            return res.status(400).json({ error: `Invalid fields: ${invalidFields.join(', ')}` });
+        }
+
 
         if (email) contact.email = encrypt(email);
         if (linkedin) contact.linkedin = encrypt(linkedin);
         if (twitter) contact.twitter = encrypt(twitter);
-        else return res.status(404).json({error:'Invalid field'});
+       
         
 
         await contact.save();
