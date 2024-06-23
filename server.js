@@ -6,7 +6,7 @@ const contactRoutes = require('./routes/contacts');
 const dotenv = require('dotenv')
 dotenv.config()
 const app = express();
-console.log(process.env.MONGO_DB_URL)
+// console.log(process.env.MONGO_DB_URL
 const mongo=process.env.MONGO_DB_URL;
 // Middleware
 app.use(bodyParser.json());

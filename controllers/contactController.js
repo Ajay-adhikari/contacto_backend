@@ -72,8 +72,8 @@ const editContact = async (req, res) => {
         }
 
         if (email) contact.email = encrypt(email);
-        else if (linkedin) contact.linkedin = encrypt(linkedin);
-        else if (twitter) contact.twitter = encrypt(twitter);
+        if (linkedin) contact.linkedin = encrypt(linkedin);
+        if (twitter) contact.twitter = encrypt(twitter);
         else return res.status(404).json({error:'Invalid field'});
         
 
